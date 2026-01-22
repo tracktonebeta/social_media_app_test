@@ -27,14 +27,14 @@ class FirebaseAuthRepo implements AuthRepo {
   }
 
   @override
-  Future<AppUser?> registerWithEmailAndPassword(String email, String password) async {
+  Future<AppUser?> registerWithEmailAndPassword(String name, String email, String password) async {
     try {
 
       // attempt to register with email and password
       final userCredential = await firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
 
       // return the user
-      AppUser user = AppUser(uid: userCredential.user?.uid ?? '', email: email, name: userCredential.user?.displayName ?? '');
+      AppUser user = AppUser(uid: userCredential.user?.uid ?? '', email: email, name: name);
 
       // save user data in firestore for users collection in json format
       // To do this, we need to import cloud_firestore. (Make sure to add the dependency in pubspec.yaml!)
